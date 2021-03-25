@@ -1,0 +1,29 @@
+module.exports = {
+  env: {
+    browser: true,
+    commonjs: true,
+    es6: true,
+    node: true
+  },
+  plugins: ['react', 'react-hooks'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'plugin:prettier/recommended'
+  ],
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true
+    },
+    sourceType: 'module',
+    ecmaVersion: 2018
+  },
+  settings: {
+    react: {
+      version: 'detect'
+    }
+  },
+  rules: {
+    'linebreak-style': ['error', 'unix']
+  }
+};
