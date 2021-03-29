@@ -1,10 +1,10 @@
 import React from 'react';
-import { HashRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Header from './header/header.component';
 import Footer from './footer/footer.component';
 import MainPage from './mainPage/mainPage.component';
 import Textbook from './textbook/textbook.component';
+import Header from './Header';
 
 const App = () => {
   return (
