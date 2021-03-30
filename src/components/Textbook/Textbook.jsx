@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import * as S from './styled.component';
+import * as S from './styled';
 // import PropTypes from 'prop-types';
 
 const Textbook = () => {
