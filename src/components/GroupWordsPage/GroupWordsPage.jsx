@@ -4,9 +4,10 @@ import PropTypes from 'prop-types';
 
 import { getWords } from '../../utilities/rslang.service';
 import BasicPagination from '../Pagination';
+import WordBlock from '../WordBlock';
 import * as S from './styled';
 
-const GroupWords = ({ groupId }) => {
+const GroupWordsPage = ({ groupId }) => {
   const [wordsData, updateWordsData] = useState([]);
   const [currentPage, updateCurrentPage] = useState(1);
 
@@ -19,19 +20,21 @@ const GroupWords = ({ groupId }) => {
   return (
     <S.GroupWordsPage>
       {wordsData.map((wordData, i) => (
-        <div key={i}>{wordData.word}</div>
+        <WordBlock key={i} wordData={wordData}></WordBlock>
       ))}
-      <BasicPagination
-        currentPage={currentPage}
-        updateCurrentPage={updateCurrentPage}
-      />
+      <S.PaginationWrapper>
+        <BasicPagination
+          currentPage={currentPage}
+          updateCurrentPage={updateCurrentPage}
+        />
+      </S.PaginationWrapper>
     </S.GroupWordsPage>
   );
 };
 
-GroupWords.propTypes = {
+GroupWordsPage.propTypes = {
   history: PropTypes.object,
   groupId: PropTypes.string
 };
 
-export default GroupWords;
+export default GroupWordsPage;
