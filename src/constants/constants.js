@@ -6,3 +6,5 @@ export const nameGroupWords = [
   'Group 5',
   'Group 6'
 ];
+
+export const http = 'https://react-rslang-be.herokuapp.com/';
