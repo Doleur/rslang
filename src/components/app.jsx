@@ -1,7 +1,10 @@
 import React from 'react';
+import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import Footer from './Footer';
 import GroupWordsPage from './GroupWordsPage';
+import Header from './Header';
 import MainPage from './MainPage';
 import MiniDrawer from './Sidebar';
 import Textbook from './Textbook';
@@ -9,7 +12,8 @@ import Textbook from './Textbook';
 const App = () => {
   const routePage = () => {
     return (
-      <>
+      <Container>
+        <Header />
         <Route path="/" render={() => <MainPage />} exact />
         <Route
           path="/textbook"
@@ -25,7 +29,8 @@ const App = () => {
             return <GroupWordsPage groupId={id} />;
           }}
         />
-      </>
+        <Footer />
+      </Container>
     );
   };
   return (
