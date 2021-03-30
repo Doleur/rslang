@@ -8,7 +8,7 @@ const AudioCall = () => {
   const now = 20;
   return (
     <>
-      <Container variant="dark">
+      <Container>
         <Row>
           <Col className="d-flex justify-content-md-center">
             <S.ButtonVolume size="lg" variant="outline-secondary">
