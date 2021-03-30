@@ -1,18 +1,24 @@
 import React from 'react';
-import { Navbar } from 'react-bootstrap';
+import { Button, Navbar } from 'react-bootstrap';
 
 import * as S from './styled';
 
 const Header = () => {
   return (
-    <Navbar>
+    <S.NavbarWrapper>
       <Navbar.Brand href="/">Logo Here</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <S.SignInButton variant="outline-primary">Войти</S.SignInButton>
-        <S.AuthButton variant="primary">Регистрация</S.AuthButton>
+        <S.AuthWrapper>
+          <Button as="a" variant="outline-primary">
+            Войти
+          </Button>
+          <Button as="a" href="/signup" variant="primary">
+            Регистрация
+          </Button>
+        </S.AuthWrapper>
       </Navbar.Collapse>
-    </Navbar>
+    </S.NavbarWrapper>
   );
 };
 
