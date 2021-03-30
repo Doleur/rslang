@@ -2,11 +2,11 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import Footer from './Footer';
+import AudioCall from './game-audio-call';
 import Header from './Header';
-import Menu from './menu';
 import MainPage from './MainPage';
+import Menu from './menu';
 import Textbook from './Textbook';
-
 
 const App = () => {
   return (
@@ -22,6 +22,7 @@ const App = () => {
             return <Textbook id={id} />;
           }}
         />
+        <Route path="/game" render={() => <AudioCall />} />
         <Footer />
       </Router>
     </>

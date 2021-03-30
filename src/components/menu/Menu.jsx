@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { Navbar } from 'react-bootstrap';
 
 const Menu = () => {
@@ -9,7 +8,7 @@ const Menu = () => {
         <Navbar.Brand href="/game">Game</Navbar.Brand>
       </Navbar>
     </>
-  )
-}
+  );
+};
 
 export default Menu;
