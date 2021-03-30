@@ -1,5 +1,5 @@
 import React from 'react';
-import * as S from './styled.component';
+import * as S from './styled';
 
 import logo from './../../assets/img/rs_school_js.svg';
 
