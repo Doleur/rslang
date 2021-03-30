@@ -5,12 +5,14 @@ import Footer from './footer/footer.component';
 import MainPage from './mainPage/mainPage.component';
 import Textbook from './textbook/textbook.component';
 import Header from './Header';
+import Menu from './menu';
 
 const App = () => {
   return (
     <>
       <Router>
         <Header />
+        <Menu />
         <Route path="/" render={() => <MainPage />} exact />
         <Route
           path="/textbook/:id"
