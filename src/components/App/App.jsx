@@ -14,22 +14,24 @@ const App = () => {
     <Container>
       <Router>
         <Header />
-        <Route path="/" render={() => <MainPage />} exact />
-        <Route path="/signup" render={() => <SignUp />} exact />
-        <Route
-          path="/textbook"
-          render={() => {
-            return <Textbook />;
-          }}
-          exact
-        />
-        <Route
-          path="/textbook/group/:id"
-          render={({ match }) => {
-            const { id } = match.params;
-            return <GroupWordsPage groupId={id} />;
-          }}
-        />
+        <main>
+          <Route path="/" render={() => <MainPage />} exact />
+          <Route path="/signup" render={() => <SignUp />} exact />
+          <Route
+            path="/textbook"
+            render={() => {
+              return <Textbook />;
+            }}
+            exact
+          />
+          <Route
+            path="/textbook/group/:id"
+            render={({ match }) => {
+              const { id } = match.params;
+              return <GroupWordsPage groupId={id} />;
+            }}
+          />
+        </main>
         <Footer />
       </Router>
     </Container>
