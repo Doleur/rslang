@@ -98,8 +98,7 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
-    paddingTop: 0
+    padding: theme.spacing(3)
   },
   header: {
     width: '100%'
@@ -200,8 +199,8 @@ const MiniDrawer = ({ routePage }) => {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {routePage()}
+        <Footer />
       </main>
-      <Footer />
     </div>
   );
 };
