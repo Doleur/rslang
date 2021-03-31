@@ -5,22 +5,30 @@ import { IconButton, InputAdornment } from '@material-ui/core';
 import { Visibility, VisibilityOff } from '@material-ui/icons';
 
 import { useAlert } from '../../contexts/AlertContext';
+import { useAuthentication } from '../../contexts/AuthenticationContext';
 import { signIn } from '../../utilities/rslang.service';
 import * as S from './styled';
 
 const Login = () => {
   const history = useHistory();
+  const { showAlertWithTimer } = useAlert();
+  const { updateCurrentUser } = useAuthentication();
   const [email, updateEmail] = useState('');
   const [password, updatePassword] = useState('');
   const [showPassword, updateShowPassword] = useState(false);
-  const { showAlertWithTimer } = useAlert();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     signIn({ params: { name, email, password } })
       .then((response) => {
-        localStorage.setItem('accessToken', response.data.token);
+        const { token, name, userId } = response.data;
+
+        localStorage.setItem(
+          'currentUser',
+          JSON.stringify({ token, name, userId })
+        );
+        updateCurrentUser({ token, name, userId });
 
         history.push('/');
 
