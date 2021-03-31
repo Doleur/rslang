@@ -48,7 +48,7 @@ const Login = () => {
   return (
     <S.Wrapper>
       <Row className="h-100">
-        <Col sm={8}>sm=8</Col>
+        <Col sm={8}></Col>
         <S.RightSection sm={4}>
           <S.Form onSubmit={handleSubmit}>
             <S.FormInner>
