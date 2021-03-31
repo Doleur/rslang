@@ -1,17 +1,15 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import Footer from './Footer';
 import GroupWordsPage from './GroupWordsPage';
-import Header from './Header';
 import MainPage from './MainPage';
+import MiniDrawer from './Sidebar';
 import Textbook from './Textbook';
 
 const App = () => {
-  return (
-    <>
-      <Router>
-        <Header />
+  const routePage = () => {
+    return (
+      <>
         <Route path="/" render={() => <MainPage />} exact />
         <Route
           path="/textbook"
@@ -27,8 +25,13 @@ const App = () => {
             return <GroupWordsPage groupId={id} />;
           }}
         />
-
-        <Footer />
+      </>
+    );
+  };
+  return (
+    <>
+      <Router>
+        <MiniDrawer routePage={routePage}></MiniDrawer>
       </Router>
     </>
   );
