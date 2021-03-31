@@ -2,11 +2,8 @@ import styled from 'styled-components';
 
 export const FooterWrapper = styled.footer`
   align-items: center;
-  bottom: 0;
-  left: 0;
   display: flex;
   justify-content: space-around;
-  position: fixed;
   width: 100%;
 `;
 

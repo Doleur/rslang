@@ -20,25 +20,25 @@ const App = () => {
         {showAlert && alertText.length > 0 && (
           <S.Flash severity={alertType}>{alertText}</S.Flash>
         )}
+        <Route path="/" render={() => <MainPage />} exact />
         <Container>
-          <Route path="/" render={() => <MainPage />} exact />
           <Route path="/signup" render={() => <SignUp />} exact />
           <Route path="/login" render={() => <Login />} exact />
-          <Route
-            path="/textbook"
-            render={() => {
-              return <Textbook />;
-            }}
-            exact
-          />
-          <Route
-            path="/textbook/group/:id"
-            render={({ match }) => {
-              const { id } = match.params;
-              return <GroupWordsPage groupId={id} />;
-            }}
-          />
         </Container>
+        <Route
+          path="/textbook"
+          render={() => {
+            return <Textbook />;
+          }}
+          exact
+        />
+        <Route
+          path="/textbook/group/:id"
+          render={({ match }) => {
+            const { id } = match.params;
+            return <GroupWordsPage groupId={id} />;
+          }}
+        />
       </>
     );
   };
