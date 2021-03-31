@@ -23,16 +23,15 @@ const AudioCall = () => {
   }, []);
 
   useEffect(() => {
-    if (!wordsData[1] || !gameWordsData[1]) return;
     const newGameWordsData = [...wordsData].sort(() => Math.random() - 0.5);
     updateGameWordsData(newGameWordsData);
-    console.log(newGameWordsData);
+  }, [wordsData]);
+
+  useEffect(() => {
+    if (!gameWordsData.length) return;
     updateTranslate(gameWordsData[gameWordsData.length - 1].wordTranslate);
     updateAudioPronunciation(gameWordsData[gameWordsData.length - 1].audio);
-    console.log(gameWordsData.length);
-    //gameWordsData.shift();
-    // console.log(getRandomArrAnswer(gameWordsData));
-  }, [gameWordsData, wordsData]);
+  }, [gameWordsData]);
 
   return (
     <>
