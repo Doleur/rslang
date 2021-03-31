@@ -3,29 +3,38 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { getWords } from '../../utilities/rslang.service';
+import BasicPagination from '../Pagination';
+import WordBlock from '../WordBlock';
 import * as S from './styled';
 
-const GroupWords = ({ groupId }) => {
+const GroupWordsPage = ({ groupId }) => {
   const [wordsData, updateWordsData] = useState([]);
+  const [currentPage, updateCurrentPage] = useState(1);
 
   useEffect(() => {
-    getWords(groupId, 0).then((response) => {
+    getWords(groupId, currentPage - 1).then((response) => {
       updateWordsData(response.data);
     });
-  }, []);
+  }, [currentPage]);
 
   return (
     <S.GroupWordsPage>
-      {wordsData.map((wordData) => (
-        <div>{wordData.word}</div>
+      {wordsData.map((wordData, i) => (
+        <WordBlock key={i} wordData={wordData}></WordBlock>
       ))}
+      <S.PaginationWrapper>
+        <BasicPagination
+          currentPage={currentPage}
+          updateCurrentPage={updateCurrentPage}
+        />
+      </S.PaginationWrapper>
     </S.GroupWordsPage>
   );
 };
 
-GroupWords.propTypes = {
+GroupWordsPage.propTypes = {
   history: PropTypes.object,
   groupId: PropTypes.string
 };
 
-export default GroupWords;
+export default GroupWordsPage;
