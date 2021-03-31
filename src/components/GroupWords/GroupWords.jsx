@@ -11,7 +11,7 @@ const GroupWords = ({ history, groupId, name }) => {
         history.push(`/textbook/group/${groupId}`);
       }}
     >
-      {name}
+      <S.Text>{name}</S.Text>
     </S.GroupWords>
   );
 };

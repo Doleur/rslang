@@ -19,6 +19,12 @@ const GroupWordsPage = ({ groupId }) => {
 
   return (
     <S.GroupWordsPage>
+      <S.PaginationWrapper>
+        <BasicPagination
+          currentPage={currentPage}
+          updateCurrentPage={updateCurrentPage}
+        />
+      </S.PaginationWrapper>
       {wordsData.map((wordData, i) => (
         <WordBlock key={i} wordData={wordData}></WordBlock>
       ))}
