@@ -6,6 +6,7 @@ import { useAlert } from '../../contexts/AlertContext';
 import Footer from '../Footer';
 import GroupWordsPage from '../GroupWordsPage';
 import Header from '../Header';
+import Login from '../Login';
 import MainPage from '../MainPage';
 import SignUp from '../SignUp';
 import Textbook from '../Textbook';
@@ -25,6 +26,7 @@ const App = () => {
           <main>
             <Route path="/" render={() => <MainPage />} exact />
             <Route path="/signup" render={() => <SignUp />} exact />
+            <Route path="/login" render={() => <Login />} exact />
             <Route
               path="/textbook"
               render={() => {

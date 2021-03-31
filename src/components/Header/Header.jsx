@@ -29,7 +29,7 @@ const Header = () => {
         <S.AuthWrapper>
           <Button
             as="a"
-            onClick={(event) => handleLinkClick(event, '/signin')}
+            onClick={(event) => handleLinkClick(event, '/login')}
             variant="outline-primary"
           >
             Войти

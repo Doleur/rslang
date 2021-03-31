@@ -11,3 +11,7 @@ export const getWordById = (id) => {
 export const signUp = ({ params }) => {
   return httpRSLang.post('/users', params);
 };
+
+export const signIn = ({ params }) => {
+  return httpRSLang.post('/signin', params);
+};
