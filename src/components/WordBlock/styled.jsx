@@ -2,7 +2,6 @@ import styled from 'styled-components';
 
 export const WordBlock = styled.div`
   display: flex;
-  background-color: purple;
   padding: 20px;
 `;
 
@@ -13,4 +12,18 @@ export const WordImage = styled.div`
   border-radius: 30px;
   margin: 10px 0;
   margin-right: 30px;
+`;
+
+export const Word = styled.div`
+  span {
+    margin-right: 10px;
+  }
+`;
+
+export const TextMeaning = styled.div`
+  padding: 10px 20px;
+`;
+
+export const TextExample = styled.div`
+  padding: 10px 20px;
 `;

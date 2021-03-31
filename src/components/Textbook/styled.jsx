@@ -4,5 +4,5 @@ export const TextbookWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  height: 80vh;
+  min-height: 80vh;
 `;
