@@ -6,7 +6,6 @@ import AudioCall from './game-audio-call';
 import GroupWordsPage from './GroupWordsPage';
 import Header from './Header';
 import MainPage from './MainPage';
-import Menu from './menu';
 import Textbook from './Textbook';
 
 const App = () => {
@@ -14,7 +13,6 @@ const App = () => {
     <>
       <Router>
         <Header />
-        <Menu />
         <Route path="/" render={() => <MainPage />} exact />
         <Route
           path="/textbook"
@@ -30,7 +28,7 @@ const App = () => {
             return <GroupWordsPage groupId={id} />;
           }}
         />
-        <Route path="/game" render={() => <AudioCall />} />
+        <Route path="/game-audio-call" render={() => <AudioCall />} />
         <Footer />
       </Router>
     </>

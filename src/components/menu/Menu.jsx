@@ -5,7 +5,7 @@ const Menu = () => {
   return (
     <>
       <Navbar bg="light">
-        <Navbar.Brand href="/game">Game</Navbar.Brand>
+
       </Navbar>
     </>
   );
