@@ -43,7 +43,7 @@ const AudioCall = () => {
             </Col>
           </Row>
           <Row>
-            <ButtonsAnswer arr={gameWordsData} rightAnswer={wordTranslate} />
+            <ButtonsAnswer arr={gameWordsData} rightAnswer={wordTranslate} updateGameWordsData={updateGameWordsData} />
           </Row>
           <Row>
             <Col className="d-flex justify-content-md-center">
