@@ -10,7 +10,7 @@ export function getRandomArrAnswer(arr, rightAnswer) {
   return randomArr.sort(() => Math.random() - 0.5);
 }
 
-export function changeAnswer(event, rightAnswer, arr){
+export function changeAnswer(event, rightAnswer, arr, updateGameWordsData){
   if (event.target.innerHTML === rightAnswer) {
     event.target.classList.remove('btn-outline-secondary');
     event.target.classList.add('btn-success');
@@ -18,6 +18,8 @@ export function changeAnswer(event, rightAnswer, arr){
     event.target.classList.remove('btn-outline-secondary');
     event.target.classList.add('btn-danger');
   }
+  arr.pop()
+  updateGameWordsData(arr);
   console.log(arr);
-  arr.pop();
+
 }
