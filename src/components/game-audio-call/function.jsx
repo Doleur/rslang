@@ -18,7 +18,6 @@ export function changeAnswer(event, rightAnswer, arr, updateGameWordsData){
     event.target.classList.remove('btn-outline-secondary');
     event.target.classList.add('btn-danger');
   }
-  console.log(arr);
-  arr.pop();
+  arr.pop()
   updateGameWordsData([...arr]);
 }
