@@ -1,23 +1,28 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import IconButton from '@material-ui/core/IconButton';
-import List from '@material-ui/core/List';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import EqualizerIcon from '@material-ui/icons/Equalizer';
-import HomeIcon from '@material-ui/icons/Home';
-import MenuIcon from '@material-ui/icons/Menu';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
+import {
+  AppBar,
+  CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+  List,
+  ListItemIcon,
+  ListItemText,
+  makeStyles,
+  Toolbar,
+  Typography,
+  useTheme
+} from '@material-ui/core';
+import {
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
+  Equalizer as EqualizerIcon,
+  Home as HomeIcon,
+  Menu as MenuIcon,
+  MenuBook as MenuBookIcon,
+  SportsEsports as SportsEsportsIcon
+} from '@material-ui/icons';
 import clsx from 'clsx';
 import { func } from 'prop-types';
 
@@ -43,7 +48,8 @@ const useStyles = makeStyles((theme) => ({
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.leavingScreen
-    })
+    }),
+    backgroundColor: '#fff'
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -54,7 +60,8 @@ const useStyles = makeStyles((theme) => ({
     })
   },
   menuButton: {
-    marginRight: 36
+    marginRight: 36,
+    color: '#000'
   },
   hide: {
     display: 'none'
@@ -91,7 +98,11 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3)
+    padding: theme.spacing(3),
+    paddingTop: 0
+  },
+  header: {
+    width: '100%'
   }
 }));
 
@@ -135,7 +146,7 @@ const MiniDrawer = ({ routePage }) => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap>
+          <Typography variant="h6" noWrap className={classes.header}>
             <Header />
           </Typography>
         </Toolbar>
@@ -185,23 +196,12 @@ const MiniDrawer = ({ routePage }) => {
             </S.StyledLink>
           ))}
         </List>
-        {/* <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List> */}
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
         {routePage()}
-        <Footer />
       </main>
+      <Footer />
     </div>
   );
 };
