@@ -17,4 +17,5 @@ export const AuthWrapper = styled.div`
 
 export const User = styled.span`
   margin-right: 10px;
+  color: #000;
 `;

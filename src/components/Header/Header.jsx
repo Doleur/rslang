@@ -29,48 +29,39 @@ const Header = () => {
       <Navbar.Brand href="/" onClick={(event) => handleLinkClick(event, '/')}>
         Logo Here
       </Navbar.Brand>
-      <Navbar.Brand
-        href="/textbook"
-        onClick={(event) => handleLinkClick(event, '/textbook')}
-      >
-        textbook
-      </Navbar.Brand>
-      <Navbar.Toggle aria-controls="basic-navbar-nav" />
-      <Navbar.Collapse id="basic-navbar-nav">
-        <S.AuthWrapper>
-          {currentUser && (
-            <>
-              <S.User>{currentUser.name}</S.User>
-              <Button
-                as="a"
-                onClick={(event) => handleLogout(event)}
-                variant="outline-primary"
-              >
-                Выйти
-              </Button>
-            </>
-          )}
-          {!currentUser && (
-            <>
-              <Button
-                as="a"
-                onClick={(event) => handleLinkClick(event, '/login')}
-                variant="outline-primary"
-              >
-                Войти
-              </Button>
-              <Button
-                as="a"
-                href="/signup"
-                onClick={(event) => handleLinkClick(event, '/signup')}
-                variant="primary"
-              >
-                Регистрация
-              </Button>
-            </>
-          )}
-        </S.AuthWrapper>
-      </Navbar.Collapse>
+      <S.AuthWrapper>
+        {currentUser && (
+          <>
+            <S.User>{currentUser.name}</S.User>
+            <Button
+              as="a"
+              onClick={(event) => handleLogout(event)}
+              variant="outline-primary"
+            >
+              Выйти
+            </Button>
+          </>
+        )}
+        {!currentUser && (
+          <>
+            <Button
+              as="a"
+              onClick={(event) => handleLinkClick(event, '/login')}
+              variant="outline-primary"
+            >
+              Войти
+            </Button>
+            <Button
+              as="a"
+              href="/signup"
+              onClick={(event) => handleLinkClick(event, '/signup')}
+              variant="primary"
+            >
+              Регистрация
+            </Button>
+          </>
+        )}
+      </S.AuthWrapper>
     </S.NavbarWrapper>
   );
 };
