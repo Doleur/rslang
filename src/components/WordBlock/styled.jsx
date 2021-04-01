@@ -1,5 +1,6 @@
 import { Button } from 'react-bootstrap';
 import styled from 'styled-components';
+import StarsIcon from '@material-ui/icons/Stars';
 
 export const WordBlock = styled.div`
   display: flex;
@@ -25,6 +26,15 @@ export const Word = styled.div`
     margin-right: 10px;
   }
 `;
+
+export const HardWord = styled.span`
+  background-color: #ffc107;
+  border-radius: 10px;
+  padding: 5px;
+  vertical-align: middle;
+`;
+
+export const StarIcon = styled(StarsIcon)``;
 
 export const TextMeaning = styled.div`
   padding: 10px 20px;
