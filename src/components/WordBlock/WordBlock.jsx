@@ -3,7 +3,7 @@ import { func, shape, string } from 'prop-types';
 
 import { http } from '../../constants/constants';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
-import { createUserWord } from '../../utilities/rslang.service';
+import { createUserWord, updateUserWord } from '../../utilities/rslang.service';
 import * as S from './styled';
 
 const WordBlock = ({ wordData, triggerRefetch }) => {
@@ -27,6 +27,19 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
       token: currentUser.token,
       wordId,
       params: { difficulty: 'hard' }
+    })
+      .then(() => triggerRefetch((prevValue) => !prevValue))
+      .catch((error) => console.log(error));
+  };
+
+  const deleteWord = () => {
+    const request = userWord ? updateUserWord : createUserWord;
+
+    request({
+      userId: currentUser.userId,
+      token: currentUser.token,
+      wordId,
+      params: { optional: { deleted: true } }
     })
       .then(() => triggerRefetch((prevValue) => !prevValue))
       .catch((error) => console.log(error));
@@ -63,7 +76,9 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
               Сложное
             </S.UserActionButton>
           )}
-          <S.UserActionButton variant="danger">Удалить</S.UserActionButton>
+          <S.UserActionButton variant="danger" onClick={deleteWord}>
+            Удалить
+          </S.UserActionButton>
         </S.UserActions>
       )}
     </S.WordBlock>
