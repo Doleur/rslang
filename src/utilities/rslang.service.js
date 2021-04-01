@@ -39,3 +39,10 @@ export const createUserWord = ({ userId, wordId, token, params }) => {
     params
   );
 };
+
+export const updateUserWord = ({ userId, wordId, token, params }) => {
+  return httpRSLangAuthorized({ token }).put(
+    `/users/${userId}/words/${wordId}`,
+    params
+  );
+};

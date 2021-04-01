@@ -22,6 +22,8 @@ export const WordDescription = styled.div`
 `;
 
 export const Word = styled.div`
+  line-height: 35px;
+
   span {
     margin-right: 10px;
   }
@@ -31,10 +33,13 @@ export const HardWord = styled.span`
   background-color: #ffc107;
   border-radius: 10px;
   padding: 5px;
-  vertical-align: middle;
+  white-space: nowrap;
 `;
 
-export const StarIcon = styled(StarsIcon)``;
+export const StarIcon = styled(StarsIcon)`
+  margin: 5px 0;
+  vertical-align: top;
+`;
 
 export const TextMeaning = styled.div`
   padding: 10px 20px;
