@@ -1,11 +1,13 @@
 import React from 'react';
-// import { withRouter } from 'react-router-dom';
-import { shape, string } from 'prop-types';
+import { func, shape, string } from 'prop-types';
 
 import { http } from '../../constants/constants';
+import { useAuthentication } from '../../contexts/AuthenticationContext';
+import { createUserWord } from '../../utilities/rslang.service';
 import * as S from './styled';
 
-const WordBlock = ({ wordData }) => {
+const WordBlock = ({ wordData, triggerRefetch }) => {
+  const { currentUser } = useAuthentication();
   const {
     word,
     image,
@@ -14,16 +16,36 @@ const WordBlock = ({ wordData }) => {
     transcription,
     wordTranslate,
     textMeaningTranslate,
-    textExampleTranslate
+    textExampleTranslate,
+    userWord
   } = wordData;
+  const wordId = currentUser ? wordData._id : wordData.id;
+
+  const markWordAsHard = () => {
+    createUserWord({
+      userId: currentUser.userId,
+      token: currentUser.token,
+      wordId,
+      params: { difficulty: 'hard' }
+    })
+      .then(() => triggerRefetch((prevValue) => !prevValue))
+      .catch((error) => console.log(error));
+  };
+
   return (
     <S.WordBlock>
       <S.WordImage src={http + image} />
-      <div>
+      <S.WordDescription>
         <S.Word>
           <span>{word} </span>
           <span>{transcription} </span>
           <span>{wordTranslate}</span>
+          {userWord && (
+            <S.HardWord>
+              <S.StarIcon />
+              Сложное слово
+            </S.HardWord>
+          )}
         </S.Word>
         <S.TextMeaning>
           <div dangerouslySetInnerHTML={{ __html: textMeaning }} />
@@ -33,7 +55,17 @@ const WordBlock = ({ wordData }) => {
           <div dangerouslySetInnerHTML={{ __html: textExample }} />
           <div dangerouslySetInnerHTML={{ __html: textExampleTranslate }} />
         </S.TextExample>
-      </div>
+      </S.WordDescription>
+      {currentUser && (
+        <S.UserActions>
+          {!userWord && (
+            <S.UserActionButton variant="warning" onClick={markWordAsHard}>
+              Сложное
+            </S.UserActionButton>
+          )}
+          <S.UserActionButton variant="danger">Удалить</S.UserActionButton>
+        </S.UserActions>
+      )}
     </S.WordBlock>
   );
 };
@@ -52,7 +84,8 @@ WordBlock.propTypes = {
     wordTranslate: string,
     textMeaningTranslate: string,
     textExampleTranslate: string
-  })
+  }),
+  triggerRefetch: func.isRequired
 };
 
 export default WordBlock;
