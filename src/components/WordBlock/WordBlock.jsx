@@ -1,11 +1,12 @@
 import React from 'react';
-// import { withRouter } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 
 import { http } from '../../constants/constants';
+import { useAuthentication } from '../../contexts/AuthenticationContext';
 import * as S from './styled';
 
 const WordBlock = ({ wordData }) => {
+  const { currentUser } = useAuthentication();
   const {
     word,
     image,
@@ -16,10 +17,11 @@ const WordBlock = ({ wordData }) => {
     textMeaningTranslate,
     textExampleTranslate
   } = wordData;
+
   return (
     <S.WordBlock>
       <S.WordImage src={http + image} />
-      <div>
+      <S.WordDescription>
         <S.Word>
           <span>{word} </span>
           <span>{transcription} </span>
@@ -33,7 +35,13 @@ const WordBlock = ({ wordData }) => {
           <div dangerouslySetInnerHTML={{ __html: textExample }} />
           <div dangerouslySetInnerHTML={{ __html: textExampleTranslate }} />
         </S.TextExample>
-      </div>
+      </S.WordDescription>
+      {currentUser && (
+        <S.UserActions>
+          <S.UserActionButton variant="warning">Сложное</S.UserActionButton>
+          <S.UserActionButton variant="danger">Удалить</S.UserActionButton>
+        </S.UserActions>
+      )}
     </S.WordBlock>
   );
 };
