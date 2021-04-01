@@ -12,7 +12,7 @@ import * as S from './styled';
 const Login = () => {
   const history = useHistory();
   const { showAlertWithTimer } = useAlert();
-  const { updateCurrentUser } = useAuthentication();
+  const { setCurrentUserData } = useAuthentication();
   const [email, updateEmail] = useState('');
   const [password, updatePassword] = useState('');
   const [showPassword, updateShowPassword] = useState(false);
@@ -22,13 +22,9 @@ const Login = () => {
 
     signIn({ params: { name, email, password } })
       .then((response) => {
-        const { token, name, userId } = response.data;
+        const { token, refreshToken, name, userId } = response.data;
 
-        localStorage.setItem(
-          'currentUser',
-          JSON.stringify({ token, name, userId })
-        );
-        updateCurrentUser({ token, name, userId });
+        setCurrentUserData({ data: { token, refreshToken, name, userId } });
 
         history.push('/');
 

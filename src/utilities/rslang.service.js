@@ -1,4 +1,4 @@
-import { httpRSLang } from './http-common';
+import { httpRSLang, httpRSLangAuthorized } from './http-common';
 
 export const getWords = (group, page) => {
   return httpRSLang.get(`/words?group=${group}&page=${page}`);
@@ -14,4 +14,8 @@ export const signUp = ({ params }) => {
 
 export const signIn = ({ params }) => {
   return httpRSLang.post('/signin', params);
+};
+
+export const refreshToken = ({ userId, token }) => {
+  return httpRSLangAuthorized({ token }).get(`/users/${userId}/tokens`);
 };
