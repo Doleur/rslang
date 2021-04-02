@@ -10,7 +10,7 @@ export function getRandomArrAnswer(arr, rightAnswer) {
   return randomArr.sort(() => Math.random() - 0.5);
 }
 
-export function changeAnswer(event, rightAnswer, arr, updateGameWordsData){
+export function changeAnswer(event, rightAnswer, arr, updateGameWordsData, updateColorButton){
   if (event.target.innerHTML === rightAnswer) {
     event.target.classList.remove('btn-outline-secondary');
     event.target.classList.add('btn-success');
@@ -18,6 +18,11 @@ export function changeAnswer(event, rightAnswer, arr, updateGameWordsData){
     event.target.classList.remove('btn-outline-secondary');
     event.target.classList.add('btn-danger');
   }
-  arr.pop()
-  updateGameWordsData([...arr]);
+  // arr.pop()
+  // updateGameWordsData([...arr]);
+  // updateColorButton('outline-secondary');
+}
+
+export function getRightAnswer(event, updateValueButton) {
+  updateValueButton(true);
 }

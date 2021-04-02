@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Col, Container, ProgressBar, Row } from 'react-bootstrap';
 
 import { getWords } from '../../utilities/rslang.service';
+import ButtonDontNow from '../buttonDontNow';
 import ButtonsAnswer from './../buttonAnswer';
 import ButtonVolumeBig from './../buttonVolumeBig';
 import * as S from './styled';
@@ -51,7 +52,7 @@ const AudioCall = () => {
           </Row>
           <Row>
             <Col className="d-flex justify-content-md-center">
-              <S.ButtonAnswer variant="warning">Не знаю</S.ButtonAnswer>
+              <ButtonDontNow />
             </Col>
           </Row>
           <Row>
