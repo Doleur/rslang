@@ -15,22 +15,33 @@ export const AuthenticationProvider = ({ children }) => {
   );
 
   const setCurrentUserData = ({ data }) => {
-    localStorage.setItem('currentUser', JSON.stringify(data));
-    updateCurrentUser(data);
+    const expiresAt = new Date();
+
+    expiresAt.setHours(expiresAt.getHours() + 4);
+
+    const userData = { ...data, expiresAt };
+
+    localStorage.setItem('currentUser', JSON.stringify(userData));
+    updateCurrentUser(userData);
   };
 
   useEffect(() => {
     if (currentUser) {
-      refreshToken({
-        userId: currentUser.userId,
-        token: currentUser.refreshToken
-      }).then((response) => {
-        const { token, refreshToken } = response.data;
+      if (Date.parse(currentUser.expiresAt) < new Date()) {
+        localStorage.removeItem('currentUser');
+        updateCurrentUser(undefined);
+      } else {
+        refreshToken({
+          userId: currentUser.userId,
+          token: currentUser.refreshToken
+        }).then((response) => {
+          const { token, refreshToken } = response.data;
 
-        setCurrentUserData({
-          data: { ...(currentUser || {}), token, refreshToken }
+          setCurrentUserData({
+            data: { ...(currentUser || {}), token, refreshToken }
+          });
         });
-      });
+      }
     }
   }, []);
 
