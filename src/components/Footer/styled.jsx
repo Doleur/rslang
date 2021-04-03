@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
-export const FooterWrapper = styled.div`
+export const FooterWrapper = styled.footer`
+  align-items: center;
   display: flex;
   justify-content: space-around;
-  align-items: center;
+  width: 100%;
 `;
 
 export const AuthorWrapper = styled.div`

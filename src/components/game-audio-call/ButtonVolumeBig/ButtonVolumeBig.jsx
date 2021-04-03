@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { VolumeUp } from 'react-bootstrap-icons';
 
-import { http } from '../../constants/constants';
+import { http } from '../../../constants/constants';
 import * as S from './styled';
 
 const ButtonVolumeBig = ({ audio }) => {
   const audioUrl = http + audio;
   audio = new Audio(audioUrl);
+
   const play = () => {
     audio.play();
   };

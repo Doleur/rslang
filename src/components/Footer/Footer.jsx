@@ -1,7 +1,7 @@
 import React from 'react';
-import * as S from './styled';
 
 import logo from './../../assets/img/rs_school_js.svg';
+import * as S from './styled';
 
 const Footer = () => {
   return (
