@@ -3,7 +3,9 @@ import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { useAlert } from '../../contexts/AlertContext';
+import AudioCall from '../game-audio-call';
 import GroupWordsPage from '../GroupWordsPage';
+import GamesPage from '../gamesPage';
 import Login from '../Login';
 import MainPage from '../MainPage';
 import MiniDrawer from '../Sidebar';
@@ -39,6 +41,8 @@ const App = () => {
             return <GroupWordsPage groupId={id} />;
           }}
         />
+        <Route path="/game/" render={() => <GamesPage />} exact />
+        <Route path="/game/audiocall" render={() => <AudioCall />} />
       </>
     );
   };
