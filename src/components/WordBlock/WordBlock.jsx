@@ -1,4 +1,5 @@
 import React from 'react';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 // import { withRouter } from 'react-router-dom';
 import { shape, string } from 'prop-types';
 
@@ -33,6 +34,9 @@ const WordBlock = ({ wordData }) => {
           <div dangerouslySetInnerHTML={{ __html: textExample }} />
           <div dangerouslySetInnerHTML={{ __html: textExampleTranslate }} />
         </S.TextExample>
+      </div>
+      <div>
+        {/* <VolumeUpIcon onClick={...}/> */}
       </div>
     </S.WordBlock>
   );
