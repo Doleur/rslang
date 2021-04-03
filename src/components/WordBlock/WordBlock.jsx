@@ -1,4 +1,5 @@
 import React from 'react';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import { func, shape, string } from 'prop-types';
 
 import { http } from '../../constants/constants';
@@ -69,6 +70,7 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
           <div dangerouslySetInnerHTML={{ __html: textExampleTranslate }} />
         </S.TextExample>
       </S.WordDescription>
+
       {currentUser && (
         <S.UserActions>
           {!userWord && (
@@ -81,6 +83,7 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
           </S.UserActionButton>
         </S.UserActions>
       )}
+      <div>{/* <VolumeUpIcon onClick={...}/> */}</div>
     </S.WordBlock>
   );
 };
