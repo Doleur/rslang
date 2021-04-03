@@ -70,7 +70,6 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
           <div dangerouslySetInnerHTML={{ __html: textExampleTranslate }} />
         </S.TextExample>
       </S.WordDescription>
-
       {currentUser && (
         <S.UserActions>
           {!userWord && (
