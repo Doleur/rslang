@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import { func, shape, string } from 'prop-types';
+import useSound from 'use-sound';
 
 import { http } from '../../constants/constants';
 import { useAuthentication } from '../../contexts/AuthenticationContext';
@@ -12,6 +13,8 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
   const {
     word,
     image,
+    audio,
+    audioMeaning,
     textMeaning,
     textExample,
     transcription,
@@ -21,6 +24,8 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
     userWord
   } = wordData;
   const wordId = currentUser ? wordData._id : wordData.id;
+
+  // const [urlSound, updateUrlSound] = useState('');
 
   const markWordAsHard = () => {
     createUserWord({
@@ -44,6 +49,14 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
     })
       .then(() => triggerRefetch((prevValue) => !prevValue))
       .catch((error) => console.log(error));
+  };
+
+  // const [test, uTest] = useState(http + audio);
+
+  const [play, { stop, isPlaying }] = useSound(http + audio);
+
+  const handlePlayingSound = () => {
+    isPlaying ? stop() : play();
   };
 
   return (
@@ -70,6 +83,7 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
           <div dangerouslySetInnerHTML={{ __html: textExampleTranslate }} />
         </S.TextExample>
       </S.WordDescription>
+      <div>{<VolumeUpIcon onClick={handlePlayingSound} />}</div>
       {currentUser && (
         <S.UserActions>
           {!userWord && (
@@ -82,7 +96,6 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
           </S.UserActionButton>
         </S.UserActions>
       )}
-      <div>{/* <VolumeUpIcon onClick={...}/> */}</div>
     </S.WordBlock>
   );
 };
