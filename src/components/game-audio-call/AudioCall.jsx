@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Col, Container, ProgressBar, Row } from 'react-bootstrap';
 
 import FieldGame from './FieldGame';
 import FieldStatistics from './FieldStatistics';
@@ -7,10 +6,14 @@ import FieldStatistics from './FieldStatistics';
 const AudioCall = () => {
   const [isStatistics, updateStatistics] = useState(false);
   const [arrRightAnswer, updateArrRightAnswer] = useState([]);
+  const [arrWrongAnswer, updateArrWrongAnswer] = useState([]);
 
-  const addRightAnswer = (children) => {
-    updateArrRightAnswer([...arrRightAnswer, children]);
-    console.log(arrRightAnswer);
+  const addRightAnswer = (answerObj) => {
+    updateArrRightAnswer([...arrRightAnswer, answerObj]);
+  };
+
+  const addWrongAnswer = (answerObj) => {
+    updateArrWrongAnswer([...arrWrongAnswer, answerObj]);
   };
 
   const showStatistics = () => {
@@ -20,12 +23,16 @@ const AudioCall = () => {
   return (
     <>
       {isStatistics ? (
-        <FieldStatistics arrRightAnswer={arrRightAnswer}/>
+        <FieldStatistics
+          arrRightAnswer={arrRightAnswer}
+          arrWrongAnswer={arrWrongAnswer}
+        />
       ) : (
         <FieldGame
           arrRightAnswer={arrRightAnswer}
           showStatistics={showStatistics}
           addRightAnswer={addRightAnswer}
+          addWrongAnswer={addWrongAnswer}
         />
       )}
     </>

@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from 'react';
 import { Col, Container, ProgressBar, Row } from 'react-bootstrap';
+import { array, func } from 'prop-types';
 
 import { getWords } from '../../../utilities/rslang.service';
-import ButtonDontNow from './../ButtonDontKnow';
+import AnswerEnglish from '../AnswerEnglish';
+import ButtonDontKnow from './../ButtonDontKnow';
 import ButtonsAnswer from './../ButtonsAnswer';
 import ButtonVolumeBig from './../ButtonVolumeBig';
 
-const FieldGame = ({arrRightAnswer, showStatistics, addRightAnswer}) => {
+const FieldGame = ({ arrRightAnswer, showStatistics, addRightAnswer, addWrongAnswer }) => {
   const groupId = 1;
   const [wordsData, updateWordsData] = useState([]);
-  const [rightAnswer, updateTranslate] = useState('');
+  const [rightAnswer, updateRightAnswer] = useState('');
   const [audioPronunciation, updateAudioPronunciation] = useState('');
   const [gameWordsData, updateGameWordsData] = useState([]);
   const [isResultShown, updateIsResultShown] = useState(false);
-
+  const [rightAnswerObj, updateRightAnswerObj] = useState({});
 
   useEffect(() => {
     getWords(groupId, 0).then((response) => {
@@ -29,8 +31,9 @@ const FieldGame = ({arrRightAnswer, showStatistics, addRightAnswer}) => {
   useEffect(() => {
     if (!gameWordsData.length) return;
     console.log(gameWordsData);
-    updateTranslate(gameWordsData[gameWordsData.length - 1].wordTranslate);
-    updateAudioPronunciation(gameWordsData[gameWordsData.length - 1].audio);
+    updateRightAnswer(gameWordsData[0].wordTranslate);
+    updateAudioPronunciation(gameWordsData[0].audio);
+    updateRightAnswerObj(gameWordsData[0]);
   }, [gameWordsData]);
 
   const showRight = () => {
@@ -58,20 +61,31 @@ const FieldGame = ({arrRightAnswer, showStatistics, addRightAnswer}) => {
             </Col>
           </Row>
           <Row>
+            <Col className="d-flex justify-content-md-center">
+            {isResultShown ? (
+                <AnswerEnglish rightAnswerObj={rightAnswerObj} />
+              ) : null}
+            </Col>
+          </Row>
+          <Row>
             <ButtonsAnswer
               isShowResult={isResultShown}
               wordsData={wordsData}
               rightAnswer={rightAnswer}
               showRight={showRight}
               addRightAnswer={addRightAnswer}
+              rightAnswerObj={rightAnswerObj}
+              addWrongAnswer={addWrongAnswer}
             />
           </Row>
           <Row>
             <Col className="d-flex justify-content-md-center">
-              <ButtonDontNow
+              <ButtonDontKnow
                 showRight={showRight}
                 isResultShown={isResultShown}
                 resetAnswer={resetAnswer}
+                rightAnswerObj={rightAnswerObj}
+                addWrongAnswer={addWrongAnswer}
               />
             </Col>
           </Row>
@@ -90,5 +104,10 @@ const FieldGame = ({arrRightAnswer, showStatistics, addRightAnswer}) => {
   );
 };
 
-export default FieldGame;
+FieldGame.propTypes = {
+  arrRightAnswer: array,
+  showStatistics: func,
+  addRightAnswer: func
+};
 
+export default FieldGame;

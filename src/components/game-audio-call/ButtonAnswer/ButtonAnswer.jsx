@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { bool, func, string } from 'prop-types';
 
 import * as S from './styled';
 
 const getBootstrapClass = (isRightAnswer) =>
   isRightAnswer ? 'success' : 'danger';
 
-const ButtonAnswer = ({ children, isRightAnswer, isShowResult, showRight, addRightAnswer }) => {
+const ButtonAnswer = ({
+  children,
+  isRightAnswer,
+  isShowResult,
+  showRight,
+  addRightAnswer,
+  rightAnswerObj,
+  addWrongAnswer
+}) => {
   const [bootstrapClass, updateBootstrapClass] = useState('outline-secondary');
 
   useEffect(() => {
@@ -18,7 +27,9 @@ const ButtonAnswer = ({ children, isRightAnswer, isShowResult, showRight, addRig
     updateBootstrapClass(getBootstrapClass(isRightAnswer));
     showRight();
     if (isRightAnswer) {
-      addRightAnswer(children);
+      addRightAnswer(rightAnswerObj);
+    } else {
+      addWrongAnswer(rightAnswerObj);
     }
   };
 
@@ -27,6 +38,14 @@ const ButtonAnswer = ({ children, isRightAnswer, isShowResult, showRight, addRig
       {children}
     </S.ButtonAnswer>
   );
+};
+
+ButtonAnswer.propTypes = {
+  children: string,
+  isRightAnswer: bool,
+  isShowResult: bool,
+  showRight: func,
+  addRightAnswer: func
 };
 
 export default ButtonAnswer;
