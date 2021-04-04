@@ -1,15 +1,16 @@
 import React from 'react';
 import { VolumeUp } from 'react-bootstrap-icons';
+import { string } from 'prop-types';
 
 import { http } from '../../../constants/constants';
 import * as S from './styled';
 
 const ButtonVolumeBig = ({ audio }) => {
   const audioUrl = http + audio;
-  audio = new Audio(audioUrl);
+  const wordAudio = new Audio(audioUrl);
 
   const play = () => {
-    audio.play();
+    wordAudio.play();
   };
 
   return (
@@ -19,8 +20,8 @@ const ButtonVolumeBig = ({ audio }) => {
   );
 };
 
-// ButtonVolumeBig.propTypes = {
-//   audio: string
-// };
+ButtonVolumeBig.propTypes = {
+  audio: string
+};
 
 export default ButtonVolumeBig;

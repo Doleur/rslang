@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Col } from 'react-bootstrap';
 
-import ButtonAnswer from '../ButtonAnwer/ButtonAnswer';
+import ButtonAnswer from '../ButtonAnswer/ButtonAnswer';
 import { getRandomArrAnswer } from '../function';
 
 let keyForAnswer = 100;
-const ButtonsAnswer = ({ wordsData, rightAnswer, isShowResult, showRight, addRightAnswer }) => {
+const ButtonsAnswer = ({ wordsData, rightAnswer, isShowResult, showRight, addRightAnswer,rightAnswerObj, addWrongAnswer }) => {
   const [arrAnswer, updateArrAnswer] = useState(
     getRandomArrAnswer(wordsData, rightAnswer)
   );
@@ -22,6 +22,8 @@ const ButtonsAnswer = ({ wordsData, rightAnswer, isShowResult, showRight, addRig
         isShowResult={isShowResult}
         showRight={showRight}
         addRightAnswer={addRightAnswer}
+        rightAnswerObj={rightAnswerObj}
+        addWrongAnswer={addWrongAnswer}
       >
         {answer}
       </ButtonAnswer>

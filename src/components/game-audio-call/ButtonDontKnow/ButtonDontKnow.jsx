@@ -3,11 +3,12 @@ import { ArrowRight } from 'react-bootstrap-icons';
 
 import * as S from './styled';
 
-const ButtonDontNow = ({showRight, isResultShown, resetAnswer}) => {
+const ButtonDontKnow = ({showRight, isResultShown, resetAnswer, rightAnswerObj, addWrongAnswer }) => {
 
   const clickHandler = () => {
     if (!isResultShown) {
       showRight();
+      addWrongAnswer(rightAnswerObj);
     } else {
       resetAnswer();
     }
@@ -25,4 +26,4 @@ const ButtonDontNow = ({showRight, isResultShown, resetAnswer}) => {
   );
 };
 
-export default ButtonDontNow;
+export default ButtonDontKnow;
