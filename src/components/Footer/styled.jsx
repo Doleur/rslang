@@ -5,6 +5,9 @@ export const FooterWrapper = styled.footer`
   display: flex;
   justify-content: space-around;
   width: 100%;
+  position: fixed;
+  left: 0;
+  bottom: 0;
 `;
 
 export const AuthorWrapper = styled.div`
