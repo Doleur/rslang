@@ -98,7 +98,8 @@ const useStyles = makeStyles((theme) => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3)
+    padding: '65px 25px 45px',
+    height: '100vh'
   },
   header: {
     width: '100%'
@@ -111,6 +112,9 @@ const MiniDrawer = ({ routePage }) => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const [selectedIndex, setSelectedIndex] = useState(location.pathname);
+  const onAuthPage =
+    location &&
+    (location.pathname.match('/login') || location.pathname.match('/signup'));
 
   const handleListItemClick = (event, index) => {
     setSelectedIndex(index);
@@ -197,7 +201,7 @@ const MiniDrawer = ({ routePage }) => {
         </List>
       </Drawer>
       <main className={classes.content}>
-        <div className={classes.toolbar} />
+        {!onAuthPage && <div className={classes.toolbar} />}
         {routePage()}
         <Footer />
       </main>
