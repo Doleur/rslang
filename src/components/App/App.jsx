@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { useAlert } from '../../contexts/AlertContext';
 import AudioCall from '../game-audio-call';
+import Sprint from '../game_sprint';
 import GroupWordsPage from '../GroupWordsPage';
 import GamesPage from '../gamesPage';
 import Login from '../Login';
@@ -43,6 +44,7 @@ const App = () => {
         />
         <Route path="/game/" render={() => <GamesPage />} exact />
         <Route path="/game/audiocall" render={() => <AudioCall />} />
+        <Route path="/game/sprint" render={() => <Sprint />} />
       </>
     );
   };
