@@ -3,10 +3,10 @@ import { Container } from 'react-bootstrap';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { useAlert } from '../../contexts/AlertContext';
-import AudioCall from '../game-audio-call';
 import Sprint from '../game_sprint';
-import GroupWordsPage from '../GroupWordsPage';
+import AudioCall from '../game-audio-call';
 import GamesPage from '../gamesPage';
+import GroupWordsPage from '../GroupWordsPage';
 import Login from '../Login';
 import MainPage from '../MainPage';
 import MiniDrawer from '../Sidebar';
