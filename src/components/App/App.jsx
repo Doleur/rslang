@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 
 import { useAlert } from '../../contexts/AlertContext';
 import DeletedWords from '../DeletedWords';
+import DifficultWords from '../DifficultWords';
 import Sprint from '../game_sprint';
 import AudioCall from '../game-audio-call';
 import GamesPage from '../gamesPage';
@@ -40,6 +41,13 @@ const App = () => {
           path="/textbook/deleted_words"
           render={() => {
             return <DeletedWords />;
+          }}
+          exact
+        />
+        <Route
+          path="/textbook/difficult_words"
+          render={() => {
+            return <DifficultWords />;
           }}
           exact
         />

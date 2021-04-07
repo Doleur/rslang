@@ -8,7 +8,12 @@ import { useAuthentication } from '../../contexts/AuthenticationContext';
 import { createUserWord, updateUserWord } from '../../utilities/rslang.service';
 import * as S from './styled';
 
-const WordBlock = ({ wordData, triggerRefetch, canRestoreWord }) => {
+const WordBlock = ({
+  wordData,
+  triggerRefetch,
+  canRestoreWord,
+  canUnmarkWordAsHard
+}) => {
   const { currentUser } = useAuthentication();
   const {
     word,
@@ -23,37 +28,14 @@ const WordBlock = ({ wordData, triggerRefetch, canRestoreWord }) => {
     userWord
   } = wordData;
   const wordId = currentUser ? wordData._id : wordData.id;
+  const request = userWord ? updateUserWord : createUserWord;
 
-  const markWordAsHard = () => {
-    createUserWord({
-      userId: currentUser.userId,
-      token: currentUser.token,
-      wordId,
-      params: { difficulty: 'hard' }
-    })
-      .then(() => triggerRefetch((prevValue) => !prevValue))
-      .catch((error) => console.log(error));
-  };
-
-  const deleteWord = () => {
-    const request = userWord ? updateUserWord : createUserWord;
-
+  const callRequest = ({ params }) => {
     request({
       userId: currentUser.userId,
       token: currentUser.token,
       wordId,
-      params: { optional: { deleted: true } }
-    })
-      .then(() => triggerRefetch((prevValue) => !prevValue))
-      .catch((error) => console.log(error));
-  };
-
-  const restoreWord = () => {
-    updateUserWord({
-      userId: currentUser.userId,
-      token: currentUser.token,
-      wordId,
-      params: { optional: {} }
+      params
     })
       .then(() => triggerRefetch((prevValue) => !prevValue))
       .catch((error) => console.log(error));
@@ -73,7 +55,7 @@ const WordBlock = ({ wordData, triggerRefetch, canRestoreWord }) => {
           <span>{word} </span>
           <span>{transcription} </span>
           <span>{wordTranslate}</span>
-          {userWord && (
+          {userWord && userWord.difficulty === 'hard' && (
             <S.HardWord>
               <S.StarIcon />
               Сложное слово
@@ -92,21 +74,49 @@ const WordBlock = ({ wordData, triggerRefetch, canRestoreWord }) => {
       </S.WordDescription>
       {currentUser && (
         <S.UserActions>
-          {!userWord && (
-            <S.UserActionButton variant="warning" onClick={markWordAsHard}>
+          {userWord && userWord.difficulty !== 'hard' && !canRestoreWord && (
+            <S.UserActionButton
+              variant="warning"
+              onClick={() => callRequest({ params: { difficulty: 'hard' } })}
+            >
               Сложное
             </S.UserActionButton>
           )}
-          {canRestoreWord ? (
+          {canRestoreWord && (
             <S.UserActionButton
+              className="w-auto"
               variant="primary"
-              autoSize
-              onClick={restoreWord}
+              onClick={() =>
+                callRequest({
+                  request: updateUserWord,
+                  params: { optional: {} }
+                })
+              }
             >
               Востановить
             </S.UserActionButton>
-          ) : (
-            <S.UserActionButton variant="danger" onClick={deleteWord}>
+          )}
+          {canUnmarkWordAsHard && (
+            <S.UserActionButton
+              className="font-weight-bold w-auto"
+              variant="primary"
+              onClick={() =>
+                callRequest({
+                  request: updateUserWord,
+                  params: { difficulty: 'none' }
+                })
+              }
+            >
+              Убрать из сложных слов
+            </S.UserActionButton>
+          )}
+          {!canUnmarkWordAsHard && !canRestoreWord && (
+            <S.UserActionButton
+              variant="danger"
+              onClick={() =>
+                callRequest({ params: { optional: { deleted: true } } })
+              }
+            >
               Удалить
             </S.UserActionButton>
           )}
@@ -131,11 +141,13 @@ WordBlock.propTypes = {
     textExampleTranslate: string
   }),
   triggerRefetch: func.isRequired,
-  canRestoreWord: bool
+  canRestoreWord: bool,
+  canUnmarkWordAsHard: bool
 };
 
 WordBlock.defaultProps = {
-  canRestoreWord: false
+  canRestoreWord: false,
+  canUnmarkWordAsHard: false
 };
 
 export default WordBlock;

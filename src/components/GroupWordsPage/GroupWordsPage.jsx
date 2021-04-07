@@ -22,7 +22,11 @@ const GroupWordsPage = ({ groupId }) => {
         page: currentPage - 1,
         wordsPerPage: 20,
         filter: JSON.stringify({
-          $or: [{ 'userWord.difficulty': 'hard' }, { userWord: null }],
+          $or: [
+            { 'userWord.difficulty': 'hard' },
+            { 'userWord.difficulty': 'none' },
+            { userWord: null }
+          ],
           $and: [{ 'userWord.optional.deleted': null }]
         })
       }).then((response) => {
