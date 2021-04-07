@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import { func, shape, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import useSound from 'use-sound';
 
 import { http } from '../../constants/constants';
@@ -8,13 +8,12 @@ import { useAuthentication } from '../../contexts/AuthenticationContext';
 import { createUserWord, updateUserWord } from '../../utilities/rslang.service';
 import * as S from './styled';
 
-const WordBlock = ({ wordData, triggerRefetch }) => {
+const WordBlock = ({ wordData, triggerRefetch, canRestoreWord }) => {
   const { currentUser } = useAuthentication();
   const {
     word,
     image,
     audio,
-    audioMeaning,
     textMeaning,
     textExample,
     transcription,
@@ -24,8 +23,6 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
     userWord
   } = wordData;
   const wordId = currentUser ? wordData._id : wordData.id;
-
-  // const [urlSound, updateUrlSound] = useState('');
 
   const markWordAsHard = () => {
     createUserWord({
@@ -51,7 +48,16 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
       .catch((error) => console.log(error));
   };
 
-  // const [test, uTest] = useState(http + audio);
+  const restoreWord = () => {
+    updateUserWord({
+      userId: currentUser.userId,
+      token: currentUser.token,
+      wordId,
+      params: { optional: {} }
+    })
+      .then(() => triggerRefetch((prevValue) => !prevValue))
+      .catch((error) => console.log(error));
+  };
 
   const [play, { stop, isPlaying }] = useSound(http + audio);
 
@@ -73,6 +79,7 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
               Сложное слово
             </S.HardWord>
           )}
+          <span>{<VolumeUpIcon onClick={handlePlayingSound} />}</span>
         </S.Word>
         <S.TextMeaning>
           <div dangerouslySetInnerHTML={{ __html: textMeaning }} />
@@ -83,7 +90,6 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
           <div dangerouslySetInnerHTML={{ __html: textExampleTranslate }} />
         </S.TextExample>
       </S.WordDescription>
-      <div>{<VolumeUpIcon onClick={handlePlayingSound} />}</div>
       {currentUser && (
         <S.UserActions>
           {!userWord && (
@@ -91,9 +97,19 @@ const WordBlock = ({ wordData, triggerRefetch }) => {
               Сложное
             </S.UserActionButton>
           )}
-          <S.UserActionButton variant="danger" onClick={deleteWord}>
-            Удалить
-          </S.UserActionButton>
+          {canRestoreWord ? (
+            <S.UserActionButton
+              variant="primary"
+              autoSize
+              onClick={restoreWord}
+            >
+              Востановить
+            </S.UserActionButton>
+          ) : (
+            <S.UserActionButton variant="danger" onClick={deleteWord}>
+              Удалить
+            </S.UserActionButton>
+          )}
         </S.UserActions>
       )}
     </S.WordBlock>
@@ -106,7 +122,6 @@ WordBlock.propTypes = {
     word: string,
     image: string,
     audio: string,
-    audioMeaning: string,
     audioExample: string,
     textMeaning: string,
     textExample: string,
@@ -115,7 +130,12 @@ WordBlock.propTypes = {
     textMeaningTranslate: string,
     textExampleTranslate: string
   }),
-  triggerRefetch: func.isRequired
+  triggerRefetch: func.isRequired,
+  canRestoreWord: bool
+};
+
+WordBlock.defaultProps = {
+  canRestoreWord: false
 };
 
 export default WordBlock;

@@ -62,4 +62,10 @@ export const UserActionButton = styled(Button)`
   :last-child {
     margin-top: 10px;
   }
+
+  ${({ autoSize }) =>
+    autoSize &&
+    `
+      width: auto;
+    `};
 `;
