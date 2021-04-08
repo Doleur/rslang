@@ -40,16 +40,18 @@ const DifficultWords = ({ groupId }) => {
           updateCurrentPage={updateCurrentPage}
         />
       </S.PaginationWrapper>
-      {wordsData.map((wordData, i) => (
-        <div key={wordData.id || wordData._id}>
-          <WordBlock
-            wordData={wordData}
-            triggerRefetch={triggerRefetch}
-            canUnmarkWordAsHard
-          ></WordBlock>
-          {i < wordsData.length - 1 && <S.Spacer />}
-        </div>
-      ))}
+      <S.WordsList>
+        {wordsData.map((wordData, i) => (
+          <div key={wordData.id || wordData._id}>
+            <WordBlock
+              wordData={wordData}
+              triggerRefetch={triggerRefetch}
+              canUnmarkWordAsHard
+            ></WordBlock>
+            {i < wordsData.length - 1 && <S.Spacer />}
+          </div>
+        ))}
+      </S.WordsList>
       <S.PaginationWrapper>
         <Pagination
           currentPage={currentPage}

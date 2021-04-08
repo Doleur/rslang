@@ -47,15 +47,17 @@ const GroupWordsPage = ({ groupId }) => {
           updateCurrentPage={updateCurrentPage}
         />
       </S.PaginationWrapper>
-      {wordsData.map((wordData, i) => (
-        <div key={i}>
-          <WordBlock
-            wordData={wordData}
-            triggerRefetch={triggerRefetch}
-          ></WordBlock>
-          {i < wordsData.length - 1 && <S.Spacer />}
-        </div>
-      ))}
+      <S.WordsList>
+        {wordsData.map((wordData, i) => (
+          <div key={i}>
+            <WordBlock
+              wordData={wordData}
+              triggerRefetch={triggerRefetch}
+            ></WordBlock>
+            {i < wordsData.length - 1 && <S.Spacer />}
+          </div>
+        ))}
+      </S.WordsList>
       <S.PaginationWrapper>
         <BasicPagination
           currentPage={currentPage}
