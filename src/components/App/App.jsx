@@ -38,20 +38,23 @@ const App = () => {
           exact
         />
         <Route
-          path="/textbook/deleted_words"
-          render={() => {
-            return <DeletedWords />;
-          }}
           exact
+          path="/textbook/group/:id/deleted_words"
+          render={({ match }) => {
+            const { id } = match.params;
+            return <DeletedWords groupId={id} />;
+          }}
         />
         <Route
-          path="/textbook/difficult_words"
-          render={() => {
-            return <DifficultWords />;
-          }}
           exact
+          path="/textbook/group/:id/difficult_words"
+          render={({ match }) => {
+            const { id } = match.params;
+            return <DifficultWords groupId={id} />;
+          }}
         />
         <Route
+          exact
           path="/textbook/group/:id"
           render={({ match }) => {
             const { id } = match.params;
