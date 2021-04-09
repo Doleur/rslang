@@ -11,6 +11,7 @@ const DeletedWords = ({ groupId }) => {
   const { currentUser } = useAuthentication();
   const [wordsData, updateWordsData] = useState([]);
   const [currentPage, updateCurrentPage] = useState(1);
+  const [pageCount, updatePageCount] = useState(0);
   const [refetch, triggerRefetch] = useState(false);
 
   if (!currentUser) {
@@ -28,18 +29,31 @@ const DeletedWords = ({ groupId }) => {
         $and: [{ 'userWord.optional.deleted': true }]
       })
     }).then((response) => {
-      updateWordsData(response.data[0].paginatedResults);
+      const {
+        paginatedResults,
+        totalCount: [{ count }]
+      } = response.data[0];
+
+      updateWordsData(paginatedResults);
+      updatePageCount(Math.ceil(count / 20));
     });
   }, [currentPage, refetch]);
 
+  if (wordsData.length === 0) {
+    return null;
+  }
+
   return (
     <S.GroupWordsPage>
-      <S.PaginationWrapper>
-        <Pagination
-          currentPage={currentPage}
-          updateCurrentPage={updateCurrentPage}
-        />
-      </S.PaginationWrapper>
+      {pageCount > 1 && (
+        <S.PaginationWrapper>
+          <Pagination
+            currentPage={currentPage}
+            updateCurrentPage={updateCurrentPage}
+            pageCount={pageCount}
+          />
+        </S.PaginationWrapper>
+      )}
       <S.WordsList>
         {wordsData.map((wordData, i) => (
           <div key={wordData.id || wordData._id}>
@@ -52,12 +66,15 @@ const DeletedWords = ({ groupId }) => {
           </div>
         ))}
       </S.WordsList>
-      <S.PaginationWrapper>
-        <Pagination
-          currentPage={currentPage}
-          updateCurrentPage={updateCurrentPage}
-        />
-      </S.PaginationWrapper>
+      {pageCount > 1 && (
+        <S.PaginationWrapper>
+          <Pagination
+            currentPage={currentPage}
+            updateCurrentPage={updateCurrentPage}
+            pageCount={pageCount}
+          />
+        </S.PaginationWrapper>
+      )}
     </S.GroupWordsPage>
   );
 };

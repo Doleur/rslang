@@ -11,6 +11,7 @@ const GroupWordsPage = ({ groupId }) => {
   const { currentUser } = useAuthentication();
   const [wordsData, updateWordsData] = useState([]);
   const [currentPage, updateCurrentPage] = useState(1);
+  const [pageCount, updatePageCount] = useState(0);
   const [refetch, triggerRefetch] = useState(false);
 
   useEffect(() => {
@@ -30,7 +31,13 @@ const GroupWordsPage = ({ groupId }) => {
           $and: [{ 'userWord.optional.deleted': null }]
         })
       }).then((response) => {
-        updateWordsData(response.data[0].paginatedResults);
+        const {
+          paginatedResults,
+          totalCount: [{ count }]
+        } = response.data[0];
+
+        updateWordsData(paginatedResults);
+        updatePageCount(Math.ceil(count / 20));
       });
     } else {
       getWords(groupId, currentPage - 1).then((response) => {
@@ -39,14 +46,21 @@ const GroupWordsPage = ({ groupId }) => {
     }
   }, [currentPage, refetch]);
 
+  if (wordsData.length === 0) {
+    return null;
+  }
+
   return (
     <S.GroupWordsPage>
-      <S.PaginationWrapper>
-        <BasicPagination
-          currentPage={currentPage}
-          updateCurrentPage={updateCurrentPage}
-        />
-      </S.PaginationWrapper>
+      {pageCount > 1 && (
+        <S.PaginationWrapper>
+          <BasicPagination
+            currentPage={currentPage}
+            updateCurrentPage={updateCurrentPage}
+            pageCount={pageCount}
+          />
+        </S.PaginationWrapper>
+      )}
       <S.WordsList>
         {wordsData.map((wordData, i) => (
           <div key={i}>
@@ -58,12 +72,15 @@ const GroupWordsPage = ({ groupId }) => {
           </div>
         ))}
       </S.WordsList>
-      <S.PaginationWrapper>
-        <BasicPagination
-          currentPage={currentPage}
-          updateCurrentPage={updateCurrentPage}
-        />
-      </S.PaginationWrapper>
+      {pageCount > 1 && (
+        <S.PaginationWrapper>
+          <BasicPagination
+            currentPage={currentPage}
+            updateCurrentPage={updateCurrentPage}
+            pageCount={pageCount}
+          />
+        </S.PaginationWrapper>
+      )}
     </S.GroupWordsPage>
   );
 };
