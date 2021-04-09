@@ -45,7 +45,7 @@ const GroupWords = ({ history, groupId, name }) => {
       <S.Text>{name}</S.Text>
       <S.NotebookButton
         variant="outline-primary"
-        onClick={() => handleClick(`/textbook/group/${groupId}`)}
+        onClick={() => history.push(`/textbook/group/${groupId}`)}
       >
         Общее
       </S.NotebookButton>
