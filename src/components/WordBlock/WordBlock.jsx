@@ -1,6 +1,6 @@
 import React from 'react';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import { bool, func, shape, string } from 'prop-types';
+import { bool, func, oneOf, shape, string } from 'prop-types';
 import useSound from 'use-sound';
 
 import { http } from '../../constants/constants';
@@ -8,12 +8,7 @@ import { useAuthentication } from '../../contexts/AuthenticationContext';
 import { createUserWord, updateUserWord } from '../../utilities/rslang.service';
 import * as S from './styled';
 
-const WordBlock = ({
-  wordData,
-  triggerRefetch,
-  canRestoreWord,
-  canUnmarkWordAsHard
-}) => {
+const WordBlock = ({ wordData, triggerRefetch, pageType }) => {
   const { currentUser } = useAuthentication();
   const {
     word,
@@ -47,6 +42,8 @@ const WordBlock = ({
     isPlaying ? stop() : play();
   };
 
+  const canMarkAsHard = () => {};
+
   return (
     <S.WordBlock>
       <S.WordImage src={http + image} />
@@ -74,15 +71,16 @@ const WordBlock = ({
       </S.WordDescription>
       {currentUser && (
         <S.UserActions>
-          {userWord && userWord.difficulty !== 'hard' && !canRestoreWord && (
-            <S.UserActionButton
-              variant="warning"
-              onClick={() => callRequest({ params: { difficulty: 'hard' } })}
-            >
-              Сложное
-            </S.UserActionButton>
-          )}
-          {canRestoreWord && (
+          {pageType === 'general' &&
+            ((userWord && userWord.difficulty !== 'hard') || !userWord) && (
+              <S.UserActionButton
+                variant="warning"
+                onClick={() => callRequest({ params: { difficulty: 'hard' } })}
+              >
+                Сложное
+              </S.UserActionButton>
+            )}
+          {pageType === 'deleted' && (
             <S.UserActionButton
               className="w-auto"
               variant="primary"
@@ -96,7 +94,7 @@ const WordBlock = ({
               Востановить
             </S.UserActionButton>
           )}
-          {canUnmarkWordAsHard && (
+          {pageType === 'difficult' && (
             <S.UserActionButton
               className="font-weight-bold w-auto"
               variant="primary"
@@ -110,7 +108,7 @@ const WordBlock = ({
               Убрать из сложных слов
             </S.UserActionButton>
           )}
-          {!canUnmarkWordAsHard && !canRestoreWord && (
+          {pageType === 'general' && (
             <S.UserActionButton
               variant="danger"
               onClick={() =>
@@ -141,8 +139,7 @@ WordBlock.propTypes = {
     textExampleTranslate: string
   }),
   triggerRefetch: func.isRequired,
-  canRestoreWord: bool,
-  canUnmarkWordAsHard: bool
+  pageType: oneOf(['general', 'deleted', 'difficult'])
 };
 
 WordBlock.defaultProps = {

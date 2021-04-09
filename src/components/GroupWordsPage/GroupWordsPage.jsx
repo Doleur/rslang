@@ -43,6 +43,7 @@ const GroupWordsPage = ({ groupId }) => {
       getWords(groupId, currentPage - 1).then((response) => {
         updateWordsData(response.data);
       });
+      updatePageCount(30);
     }
   }, [currentPage, refetch]);
 
@@ -67,6 +68,7 @@ const GroupWordsPage = ({ groupId }) => {
             <WordBlock
               wordData={wordData}
               triggerRefetch={triggerRefetch}
+              pageType="general"
             ></WordBlock>
             {i < wordsData.length - 1 && <S.Spacer />}
           </div>

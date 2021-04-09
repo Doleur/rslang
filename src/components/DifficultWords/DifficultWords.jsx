@@ -31,7 +31,7 @@ const DifficultWords = ({ groupId }) => {
     }).then((response) => {
       const {
         paginatedResults,
-        totalCount: [{ count }]
+        totalCount: [{ count } = { count: 0 }]
       } = response.data[0];
 
       updateWordsData(paginatedResults);
@@ -60,7 +60,7 @@ const DifficultWords = ({ groupId }) => {
             <WordBlock
               wordData={wordData}
               triggerRefetch={triggerRefetch}
-              canUnmarkWordAsHard
+              pageType="difficult"
             ></WordBlock>
             {i < wordsData.length - 1 && <S.Spacer />}
           </div>

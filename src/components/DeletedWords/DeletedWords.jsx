@@ -31,7 +31,7 @@ const DeletedWords = ({ groupId }) => {
     }).then((response) => {
       const {
         paginatedResults,
-        totalCount: [{ count }]
+        totalCount: [{ count } = { count: 0 }]
       } = response.data[0];
 
       updateWordsData(paginatedResults);
@@ -60,7 +60,7 @@ const DeletedWords = ({ groupId }) => {
             <WordBlock
               wordData={wordData}
               triggerRefetch={triggerRefetch}
-              canRestoreWord
+              pageType="deleted"
             ></WordBlock>
             {i < wordsData.length - 1 && <S.Spacer />}
           </div>
