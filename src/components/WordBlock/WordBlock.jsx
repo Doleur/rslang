@@ -1,6 +1,6 @@
 import React from 'react';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
-import { bool, func, oneOf, shape, string } from 'prop-types';
+import { func, oneOf, shape, string } from 'prop-types';
 import useSound from 'use-sound';
 
 import { http } from '../../constants/constants';
@@ -10,6 +10,7 @@ import * as S from './styled';
 
 const WordBlock = ({ wordData, triggerRefetch, pageType }) => {
   const { currentUser } = useAuthentication();
+
   const {
     word,
     image,
@@ -42,15 +43,13 @@ const WordBlock = ({ wordData, triggerRefetch, pageType }) => {
     isPlaying ? stop() : play();
   };
 
-  const canMarkAsHard = () => {};
-
   return (
     <S.WordBlock>
       <S.WordImage src={http + image} />
       <S.WordDescription>
         <S.Word>
-          <span>{word} </span>
-          <span>{transcription} </span>
+          <span>{word}</span>
+          <span>{transcription}</span>
           <span>{wordTranslate}</span>
           {userWord && userWord.difficulty === 'hard' && (
             <S.HardWord>
