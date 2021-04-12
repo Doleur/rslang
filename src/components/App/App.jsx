@@ -8,6 +8,7 @@ import DifficultWords from '../DifficultWords';
 import Sprint from '../game_sprint';
 import AudioCall from '../game-audio-call';
 import GamesPage from '../gamesPage';
+import GameWordAssociation from '../GameWordAssociation';
 import GroupWordsPage from '../GroupWordsPage';
 import Login from '../Login';
 import MainPage from '../MainPage';
@@ -64,6 +65,10 @@ const App = () => {
         <Route path="/game/" render={() => <GamesPage />} exact />
         <Route path="/game/audiocall" render={() => <AudioCall />} />
         <Route path="/game/sprint" render={() => <Sprint />} />
+        <Route
+          path="/game/wordAssociation"
+          render={() => <GameWordAssociation />}
+        />
       </>
     );
   };
