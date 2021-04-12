@@ -8,7 +8,12 @@ import ButtonDontKnow from './../ButtonDontKnow';
 import ButtonsAnswer from './../ButtonsAnswer';
 import ButtonVolumeBig from './../ButtonVolumeBig';
 
-const FieldGame = ({ arrRightAnswer, showStatistics, addRightAnswer, addWrongAnswer }) => {
+const FieldGame = ({
+  arrRightAnswer,
+  showStatistics,
+  addRightAnswer,
+  addWrongAnswer
+}) => {
   const groupId = 1;
   const [wordsData, updateWordsData] = useState([]);
   const [rightAnswer, updateRightAnswer] = useState('');
@@ -62,7 +67,7 @@ const FieldGame = ({ arrRightAnswer, showStatistics, addRightAnswer, addWrongAns
           </Row>
           <Row>
             <Col className="d-flex justify-content-md-center">
-            {isResultShown ? (
+              {isResultShown ? (
                 <AnswerEnglish rightAnswerObj={rightAnswerObj} />
               ) : null}
             </Col>
@@ -107,7 +112,8 @@ const FieldGame = ({ arrRightAnswer, showStatistics, addRightAnswer, addWrongAns
 FieldGame.propTypes = {
   arrRightAnswer: array,
   showStatistics: func,
-  addRightAnswer: func
+  addRightAnswer: func,
+  addWrongAnswer: func
 };
 
 export default FieldGame;
