@@ -11,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const BasicPagination = ({ currentPage, updateCurrentPage }) => {
+const BasicPagination = ({ currentPage, updateCurrentPage, pageCount }) => {
   const classes = useStyles();
 
   const handleChange = (event, value) => {
@@ -23,7 +23,7 @@ const BasicPagination = ({ currentPage, updateCurrentPage }) => {
       <Pagination
         onChange={handleChange}
         page={currentPage}
-        count={30}
+        count={pageCount}
         color="primary"
       />
     </div>
@@ -32,7 +32,8 @@ const BasicPagination = ({ currentPage, updateCurrentPage }) => {
 
 BasicPagination.propTypes = {
   updateCurrentPage: PropTypes.func,
-  currentPage: PropTypes.number
+  currentPage: PropTypes.number,
+  pageCount: PropTypes.number
 };
 
 export default BasicPagination;

@@ -7,7 +7,7 @@ const Footer = () => {
   return (
     <S.FooterWrapper>
       <S.AuthorWrapper>
-        <a href="https://github.com/Alena-Zykava"> Alena-Zykava </a>
+        <a href="https://github.com/Alena-Zykava">Alena-Zykava</a>
       </S.AuthorWrapper>
       <S.AuthorWrapper>
         <a href="https://github.com/AndryGinger">AndryGinger</a>

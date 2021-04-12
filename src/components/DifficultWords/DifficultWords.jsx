@@ -1,50 +1,42 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
+import { string } from 'prop-types';
 
 import { useAuthentication } from '../../contexts/AuthenticationContext';
-import { getAggregatedWords, getWords } from '../../utilities/rslang.service';
-import BasicPagination from '../Pagination';
+import { getAggregatedWords } from '../../utilities/rslang.service';
+import Pagination from '../Pagination';
 import WordBlock from '../WordBlock';
 import * as S from './styled';
 
-const GroupWordsPage = ({ groupId }) => {
+const DifficultWords = ({ groupId }) => {
   const { currentUser } = useAuthentication();
   const [wordsData, updateWordsData] = useState([]);
   const [currentPage, updateCurrentPage] = useState(1);
   const [pageCount, updatePageCount] = useState(0);
   const [refetch, triggerRefetch] = useState(false);
 
-  useEffect(() => {
-    if (currentUser) {
-      getAggregatedWords({
-        userId: currentUser.userId,
-        token: currentUser.token,
-        group: groupId,
-        page: currentPage - 1,
-        wordsPerPage: 20,
-        filter: JSON.stringify({
-          $or: [
-            { 'userWord.difficulty': 'hard' },
-            { 'userWord.difficulty': 'none' },
-            { userWord: null }
-          ],
-          $and: [{ 'userWord.optional.deleted': null }]
-        })
-      }).then((response) => {
-        const {
-          paginatedResults,
-          totalCount: [{ count }]
-        } = response.data[0];
+  if (!currentUser) {
+    return null;
+  }
 
-        updateWordsData(paginatedResults);
-        updatePageCount(Math.ceil(count / 20));
-      });
-    } else {
-      getWords(groupId, currentPage - 1).then((response) => {
-        updateWordsData(response.data);
-      });
-      updatePageCount(30);
-    }
+  useEffect(() => {
+    getAggregatedWords({
+      userId: currentUser.userId,
+      token: currentUser.token,
+      group: groupId,
+      page: currentPage - 1,
+      wordsPerPage: 20,
+      filter: JSON.stringify({
+        $and: [{ 'userWord.difficulty': 'hard' }]
+      })
+    }).then((response) => {
+      const {
+        paginatedResults,
+        totalCount: [{ count } = { count: 0 }]
+      } = response.data[0];
+
+      updateWordsData(paginatedResults);
+      updatePageCount(Math.ceil(count / 20));
+    });
   }, [currentPage, refetch]);
 
   if (wordsData.length === 0) {
@@ -55,7 +47,7 @@ const GroupWordsPage = ({ groupId }) => {
     <S.GroupWordsPage>
       {pageCount > 1 && (
         <S.PaginationWrapper>
-          <BasicPagination
+          <Pagination
             currentPage={currentPage}
             updateCurrentPage={updateCurrentPage}
             pageCount={pageCount}
@@ -64,11 +56,11 @@ const GroupWordsPage = ({ groupId }) => {
       )}
       <S.WordsList>
         {wordsData.map((wordData, i) => (
-          <div key={i}>
+          <div key={wordData.id || wordData._id}>
             <WordBlock
               wordData={wordData}
               triggerRefetch={triggerRefetch}
-              pageType="general"
+              pageType="difficult"
             ></WordBlock>
             {i < wordsData.length - 1 && <S.Spacer />}
           </div>
@@ -76,7 +68,7 @@ const GroupWordsPage = ({ groupId }) => {
       </S.WordsList>
       {pageCount > 1 && (
         <S.PaginationWrapper>
-          <BasicPagination
+          <Pagination
             currentPage={currentPage}
             updateCurrentPage={updateCurrentPage}
             pageCount={pageCount}
@@ -87,9 +79,8 @@ const GroupWordsPage = ({ groupId }) => {
   );
 };
 
-GroupWordsPage.propTypes = {
-  history: PropTypes.object,
-  groupId: PropTypes.string
+DifficultWords.propTypes = {
+  groupId: string.isRequired
 };
 
-export default GroupWordsPage;
+export default DifficultWords;
