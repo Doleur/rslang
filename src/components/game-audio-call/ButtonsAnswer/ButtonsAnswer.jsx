@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Col } from 'react-bootstrap';
 import { array, bool, func, object, string } from 'prop-types';
 
@@ -19,17 +19,25 @@ const ButtonsAnswer = ({
     getRandomArrAnswer(wordsData, rightAnswer)
   );
 
+  // const buttonNumber = useRef(null);
+
   const handleKey = (event) => {
     switch (event.keyCode) {
       case 49:
       case 97:
+        document.getElementById('1').click();
+        break;
       case 50:
       case 98:
+        document.getElementById('2').click();
+        break;
       case 51:
       case 99:
+        document.getElementById('3').click();
+        break;
       case 52:
       case 100:
-        showRight();
+        document.getElementById('4').click();
         break;
       default:
         break;
@@ -47,10 +55,12 @@ const ButtonsAnswer = ({
     };
   });
 
-  const arrButtonsAnswer = arrAnswer.map((answer) => {
+  const arrButtonsAnswer = arrAnswer.map((answer, index) => {
     return (
       <ButtonAnswer
         key={keyForAnswer++}
+        id={index + 1}
+        // ref={buttonNumber}
         isRightAnswer={answer === rightAnswer}
         isShowResult={isShowResult}
         showRight={showRight}

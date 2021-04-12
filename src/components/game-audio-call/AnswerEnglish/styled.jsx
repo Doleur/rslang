@@ -1,5 +1,15 @@
 import styled from 'styled-components';
 
+export const ImageWrapper = styled.div`
+  height: 120px;
+  width: 180px;
+  margin: 1rem;
+  img {
+    height: 100%;
+    border-radius: 30px;
+  }
+`
+
 export const TextEnglish = styled.p`
   font-size: 22px;
   font-weight: 600;
