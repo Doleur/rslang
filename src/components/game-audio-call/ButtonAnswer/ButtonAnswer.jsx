@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { bool, func, string } from 'prop-types';
+import { bool, func, object, string } from 'prop-types';
 
 import * as S from './styled';
 
@@ -24,7 +24,7 @@ const ButtonAnswer = ({
   }, [isShowResult, isRightAnswer]);
 
   const clickHandler = () => {
-    updateBootstrapClass(getBootstrapClass(isRightAnswer));
+    //updateBootstrapClass(getBootstrapClass(isRightAnswer));
     showRight();
     if (isRightAnswer) {
       addRightAnswer(rightAnswerObj);
@@ -34,7 +34,11 @@ const ButtonAnswer = ({
   };
 
   return (
-    <S.ButtonAnswer variant={bootstrapClass} onClick={clickHandler}>
+    <S.ButtonAnswer
+      variant={bootstrapClass}
+      onClick={clickHandler}
+      disabled={isShowResult}
+    >
       {children}
     </S.ButtonAnswer>
   );
@@ -45,7 +49,9 @@ ButtonAnswer.propTypes = {
   isRightAnswer: bool,
   isShowResult: bool,
   showRight: func,
-  addRightAnswer: func
+  addRightAnswer: func,
+  rightAnswerObj: object,
+  addWrongAnswer: func
 };
 
 export default ButtonAnswer;
