@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { VolumeUp } from 'react-bootstrap-icons';
 import { string } from 'prop-types';
 
@@ -8,6 +8,10 @@ import * as S from './styled';
 const ButtonVolumeBig = ({ audio }) => {
   const audioUrl = http + audio;
   const wordAudio = new Audio(audioUrl);
+
+  // useEffect(() => {
+  //   wordAudio.play();
+  // }, [wordAudio]);
 
   const play = () => {
     wordAudio.play();
