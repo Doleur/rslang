@@ -59,6 +59,15 @@ const Game = ({ difficultiesWords, updateIsGameOver }) => {
     return { rate: 'D', score: 10, color: '#a7a7a7' };
   };
 
+  const handleKey = (event) => {
+    if (event.keyCode === 37) {
+      checkCorrect(true);
+    }
+    if (event.keyCode === 39) {
+      checkCorrect(false);
+    }
+  };
+
   useEffect(() => {
     getWords(groupWords, wordsPage1).then((response) => {
       updateWordsDataPage1(response.data);
@@ -107,7 +116,14 @@ const Game = ({ difficultiesWords, updateIsGameOver }) => {
       return;
     }
     updateScore((prev) => prev + 80);
-  }, [combo]);
+  }, [wordNumberInTheGame]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKey);
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+    };
+  });
 
   return (
     wordsData.length && (
