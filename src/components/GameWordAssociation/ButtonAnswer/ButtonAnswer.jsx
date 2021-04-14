@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { bool, func, string } from 'prop-types';
+import { any, bool, func, object } from 'prop-types';
 
 import * as S from './styled';
 
@@ -41,11 +41,13 @@ const ButtonAnswer = ({
 };
 
 ButtonAnswer.propTypes = {
-  children: string,
+  children: any,
   isRightAnswer: bool,
   isShowResult: bool,
   showRight: func,
-  addRightAnswer: func
+  addRightAnswer: func,
+  rightAnswerObj: object,
+  addWrongAnswer: func
 };
 
 export default ButtonAnswer;

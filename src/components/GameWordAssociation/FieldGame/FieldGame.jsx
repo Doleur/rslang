@@ -35,7 +35,7 @@ const FieldGame = ({
   useEffect(() => {
     if (!gameWordsData.length) return;
     console.log(gameWordsData);
-    updateRightAnswer(gameWordsData[0].wordTranslate);
+    updateRightAnswer(gameWordsData[0].image);
     updateRightAnswerObj(gameWordsData[0]);
   }, [gameWordsData]);
 
@@ -56,7 +56,7 @@ const FieldGame = ({
 
   return (
     <>
-      {wordsData[1] && (
+      {wordsData[1] && gameWordsData[0] && (
         <Container>
           <Row>
             <Col className="d-flex justify-content-md-center">
