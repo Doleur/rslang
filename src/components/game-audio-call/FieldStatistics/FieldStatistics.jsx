@@ -11,7 +11,6 @@ const FieldStatistics = ({ arrRightAnswer, arrWrongAnswer }) => {
     const wordAudio = new Audio(audioUrl);
     wordAudio.play();
   };
-
   const rightAnswers = (arrWord) =>
     arrWord.map((answer) => {
       return (

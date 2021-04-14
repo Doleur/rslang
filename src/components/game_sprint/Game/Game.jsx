@@ -7,7 +7,12 @@ import { getRandomNumber, shuffle } from '../helpers';
 import Timer from '../Timer/Timer';
 import * as S from './styled';
 
-const Game = ({ difficultiesWords, updateIsGameOver }) => {
+const Game = ({
+  difficultiesWords,
+  updateIsGameOver,
+  updateFinalRightAnswer,
+  updateFinalWrongAnswer
+}) => {
   const [wordsDataPage1, updateWordsDataPage1] = useState([]);
   const [wordsDataPage2, updateWordsDataPage2] = useState([]);
   const [wordsDataPage3, updateWordsDataPage3] = useState([]);
@@ -17,6 +22,8 @@ const Game = ({ difficultiesWords, updateIsGameOver }) => {
   const [randomIndexWordAnswer, updateRandomIndexWordAnswer] = useState(0);
   const [score, updateScore] = useState(0);
   const [combo, updateCombo] = useState(0);
+  const [rightAnswer, updateRightAnswer] = useState([]);
+  const [wrongAnswer, updateWrongAnswer] = useState([]);
 
   const groupWords = difficultiesWords[0] - 1;
   const wordsPage1 = difficultiesWords[1] * 3 - 2;
@@ -40,11 +47,15 @@ const Game = ({ difficultiesWords, updateIsGameOver }) => {
 
     if (isCorrectTranslateWord === answer) {
       updateCombo((prev) => prev + 1);
+      updateRightAnswer([...rightAnswer, wordsData[indexCorrectWord]]);
     } else {
       updateCombo(0);
+      updateWrongAnswer([...wrongAnswer, wordsData[indexCorrectWord]]);
     }
 
     if (!indexCorrectWord) {
+      updateFinalRightAnswer([...rightAnswer, wordsData[indexCorrectWord]]);
+      updateFinalWrongAnswer([...wrongAnswer, wordsData[indexCorrectWord]]);
       updateIsGameOver(true);
       return;
     }
@@ -178,7 +189,9 @@ const Game = ({ difficultiesWords, updateIsGameOver }) => {
 
 Game.propTypes = {
   difficultiesWords: array,
-  updateIsGameOver: func
+  updateIsGameOver: func,
+  updateFinalRightAnswer: func,
+  updateFinalWrongAnswer: func
 };
 
 export default Game;
