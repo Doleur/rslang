@@ -21,14 +21,45 @@ const ButtonsAnswer = ({
     getRandomArrAnswer(wordsData, rightAnswer)
   );
 
+  const handleKey = (event) => {
+    switch (event.keyCode) {
+      case 49:
+      case 97:
+        document.getElementById('1').click();
+        break;
+      case 50:
+      case 98:
+        document.getElementById('2').click();
+        break;
+      case 51:
+      case 99:
+        document.getElementById('3').click();
+        break;
+      case 52:
+      case 100:
+        document.getElementById('4').click();
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKey);
+    return () => {
+      window.removeEventListener('keydown', handleKey);
+    };
+  });
+
   useEffect(() => {
     updateArrAnswer(getRandomArrAnswer(wordsData, rightAnswer));
   }, [wordsData, rightAnswer]);
 
-  const arrButtonsAnswer = arrAnswer.map((answer) => {
+  const arrButtonsAnswer = arrAnswer.map((answer, index) => {
     return (
       <ButtonAnswer
         key={keyForAnswer++}
+        id={index + 1}
         isRightAnswer={answer === rightAnswer}
         isShowResult={isShowResult}
         showRight={showRight}

@@ -13,7 +13,8 @@ const ButtonAnswer = ({
   showRight,
   addRightAnswer,
   rightAnswerObj,
-  addWrongAnswer
+  addWrongAnswer,
+  id
 }) => {
   const [bootstrapClass, updateBootstrapClass] = useState('outline-secondary');
 
@@ -34,7 +35,12 @@ const ButtonAnswer = ({
   };
 
   return (
-    <S.ButtonAnswer variant={bootstrapClass} onClick={clickHandler}>
+    <S.ButtonAnswer
+      variant={bootstrapClass}
+      onClick={clickHandler}
+      disabled={isShowResult}
+      id={id}
+    >
       {children}
     </S.ButtonAnswer>
   );
