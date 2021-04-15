@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { array, func } from 'prop-types';
+import { array, bool, func } from 'prop-types';
 
 import { getWords } from '../../../utilities/rslang.service';
 import Button from '../Button/Button';
 import { getRandomNumber, shuffle } from '../helpers';
-import Timer from '../Timer/Timer';
 import * as S from './styled';
 
 const Game = ({
   difficultiesWords,
   updateIsGameOver,
   updateFinalRightAnswer,
-  updateFinalWrongAnswer
+  updateFinalWrongAnswer,
+  isOverTime
 }) => {
   const [wordsDataPage1, updateWordsDataPage1] = useState([]);
   const [wordsDataPage2, updateWordsDataPage2] = useState([]);
@@ -29,6 +29,14 @@ const Game = ({
   const wordsPage1 = difficultiesWords[1] * 3 - 2;
   const wordsPage2 = difficultiesWords[1] * 3 - 1;
   const wordsPage3 = difficultiesWords[1] * 3;
+
+  const checkOverTime = () => {
+    if (!isOverTime) return;
+    updateFinalRightAnswer([...rightAnswer]);
+    updateFinalWrongAnswer([...wrongAnswer]);
+    updateIsGameOver(true);
+  };
+  checkOverTime();
 
   const getRandomIndexWordAnswer = () => {
     const isCorrectAnswer = getRandomNumber(2);
@@ -181,7 +189,6 @@ const Game = ({
             />
           </S.ButtonsWrapper>
         </S.SprintBoard>
-        <Timer updateIsGameOver={updateIsGameOver} />
       </>
     )
   );
@@ -191,7 +198,8 @@ Game.propTypes = {
   difficultiesWords: array,
   updateIsGameOver: func,
   updateFinalRightAnswer: func,
-  updateFinalWrongAnswer: func
+  updateFinalWrongAnswer: func,
+  isOverTime: bool
 };
 
 export default Game;
