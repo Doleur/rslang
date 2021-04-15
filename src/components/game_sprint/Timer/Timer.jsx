@@ -3,12 +3,12 @@ import { func } from 'prop-types';
 
 import * as S from './styled';
 
-const Timer = ({ updateIsGameOver }) => {
+const Timer = ({ updateIsOverTime }) => {
   const [time, updateTime] = useState(60);
 
   useEffect(() => {
     if (time === 0) {
-      updateIsGameOver(true);
+      updateIsOverTime(true);
       return;
     }
     const timer = setTimeout(() => {
@@ -24,7 +24,7 @@ const Timer = ({ updateIsGameOver }) => {
 };
 
 Timer.propTypes = {
-  updateIsGameOver: func
+  updateIsOverTime: func
 };
 
 export default Timer;
