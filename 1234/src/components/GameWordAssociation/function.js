@@ -1,0 +1,12 @@
+export function getRandomArrAnswer(wordsData, rightAnswer) {
+    const NUMBER_ANSWER = 4;
+    const randomArr = [];
+    randomArr.push(rightAnswer);
+    while (randomArr.length < NUMBER_ANSWER) {
+        const index = Math.floor(Math.random() * 20);
+        if (!randomArr.includes(wordsData[index].image)) {
+            randomArr.push(wordsData[index].image);
+        }
+    }
+    return randomArr.sort(() => Math.random() - 0.5);
+}
