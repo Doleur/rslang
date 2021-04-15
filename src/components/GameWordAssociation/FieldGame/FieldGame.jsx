@@ -35,7 +35,7 @@ const FieldGame = ({
   useEffect(() => {
     if (!gameWordsData.length) return;
     console.log(gameWordsData);
-    updateRightAnswer(gameWordsData[0].wordTranslate);
+    updateRightAnswer(gameWordsData[0].image);
     updateRightAnswerObj(gameWordsData[0]);
   }, [gameWordsData]);
 
@@ -46,7 +46,7 @@ const FieldGame = ({
   const resetAnswer = () => {
     if (gameWordsData.length > 1) {
       updateGameWordsData((prevArrValues) =>
-        prevArrValues.filter((obj) => obj.wordTranslate !== rightAnswer)
+        prevArrValues.filter((obj) => obj.image !== rightAnswer)
       );
       updateIsResultShown(false);
     } else {
@@ -56,11 +56,11 @@ const FieldGame = ({
 
   return (
     <>
-      {wordsData[1] && (
+      {wordsData[1] && gameWordsData[0] && (
         <Container>
           <Row>
             <Col className="d-flex justify-content-md-center">
-              <S.Word>{gameWordsData[gameWordsData.length - 1].word}</S.Word>
+              <S.Word>{rightAnswerObj.word}</S.Word>
             </Col>
           </Row>
           <Row>

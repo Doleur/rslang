@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { bool, func, string } from 'prop-types';
+import { any, bool, func, object } from 'prop-types';
 
 import * as S from './styled';
 
@@ -13,7 +13,8 @@ const ButtonAnswer = ({
   showRight,
   addRightAnswer,
   rightAnswerObj,
-  addWrongAnswer
+  addWrongAnswer,
+  id
 }) => {
   const [bootstrapClass, updateBootstrapClass] = useState('outline-secondary');
 
@@ -34,18 +35,25 @@ const ButtonAnswer = ({
   };
 
   return (
-    <S.ButtonAnswer variant={bootstrapClass} onClick={clickHandler}>
+    <S.ButtonAnswer
+      variant={bootstrapClass}
+      onClick={clickHandler}
+      disabled={isShowResult}
+      id={id}
+    >
       {children}
     </S.ButtonAnswer>
   );
 };
 
 ButtonAnswer.propTypes = {
-  children: string,
+  children: any,
   isRightAnswer: bool,
   isShowResult: bool,
   showRight: func,
-  addRightAnswer: func
+  addRightAnswer: func,
+  rightAnswerObj: object,
+  addWrongAnswer: func
 };
 
 export default ButtonAnswer;
